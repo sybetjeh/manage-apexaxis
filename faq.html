@@ -7,7 +7,9 @@
     <meta name="description" content="ApexAxis FAQ - Answering your questions about our transition to private and closed-source operations.">
     <meta property="og:title" content="ApexAxis - FAQ">
     <meta property="og:description" content="ApexAxis FAQ - Answering your questions about our transition to private and closed-source operations.">
+    <meta property="og:image" content="https://yourimageurl.com/image.jpg">
     <meta property="og:url" content="https://manage.apexaxis.nl/faq.html">
+    <meta name="twitter:card" content="summary_large_image">
     <style>
         body {
             background-color: #121212;
@@ -22,23 +24,58 @@
             box-sizing: border-box;
         }
         .container {
-            text-align: center;
             background: #1e1e1e;
-            padding: 40px 60px;
+            padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             width: 100%;
-            max-width: 600px;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         h1 {
-            font-size: 2.5em;
+            font-size: 1.8em;
             margin-bottom: 20px;
             color: #BB86FC;
         }
-        p {
-            font-size: 1.2em;
-            margin-bottom: 20px;
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            width: 100%;
+        }
+        .faq-item {
             text-align: left;
+        }
+        .faq-item p {
+            font-size: 0.9em;
+            margin: 10px 0;
+            line-height: 1.4;
+        }
+        .faq-item strong {
+            font-size: 1.1em;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .faq-item.center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 100%;
+        }
+        .faq-item.center p {
+            width: 100%;
+            max-width: 800px;
+        }
+        ul {
+            list-style: disc;
+            padding-left: 20px;
+            font-size: 0.9em;
+            line-height: 1.4;
         }
         a {
             color: #BB86FC;
@@ -50,36 +87,59 @@
             border-bottom: 2px solid #BB86FC;
         }
         .back-button {
+            display: inline-block;
             margin-top: 20px;
-            padding: 10px 20px;
+            padding: 8px 16px;
             border: none;
             border-radius: 4px;
             background: #BB86FC;
             color: #121212;
             cursor: pointer;
             text-decoration: none;
-            display: inline-block;
+            font-size: 0.9em;
         }
         .back-button:hover {
             background: #9c70db;
+        }
+        @media (min-width: 600px) {
+            .faq-grid {
+                grid-template-columns: 1fr 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Frequently Asked Questions</h1>
-        <p><strong>What happened to our data?</strong></p>
-        <p>All data stored on our servers prior to our transition to private and closed-source operations has been permanently deleted. We do not retain any backups of this data. It was the responsibility of our users to ensure that they had adequate backups of their data before the transition.</p>
-
-        <p><strong>Is it still free if I reach out?</strong></p>
-        <p>Yes, we offer a freemium model. This means that while our core services are available at no cost, there may be premium features or options available for a fee. Please contact us to discuss your specific needs and to receive more information about our current offerings.</p>
-
-        <p><strong>What could I host with your services?</strong></p>
-        <p>Our platform officially supports hosting for Discord bots. However, you can also host other types of applications including Node.js, Java, and Python applications. Please note that we do not support reverse proxying to custom domains, except for the subdomain we provide.</p>
-
-        <p><strong>What led to this change in operations?</strong></p>
-        <p>Unfortunately, one of our critical servers experienced a severe drive failure that could not be recovered. In response to this, we determined it was best to transition to a private, closed-source model to better manage and protect our infrastructure moving forward.</p>
-
+        <div class="faq-grid">
+            <div class="faq-item">
+                <p><strong>What happened to our data?</strong></p>
+                <p>All data stored on our servers prior to our transition to private and closed-source operations has been permanently deleted. We do not retain any backups of this data. It was the responsibility of our users to ensure that they had adequate backups of their data before the transition.</p>
+            </div>
+            <div class="faq-item">
+                <p><strong>Is it still free if I reach out?</strong></p>
+                <p>Yes, we offer a freemium model. This means that while our core services are available at no cost, there may be premium features or options available for a fee. Please contact us to discuss your specific needs and to receive more information about our current offerings.</p>
+            </div>
+            <div class="faq-item">
+                <p><strong>What could I host with your services?</strong></p>
+                <p>Our platform officially supports hosting for Discord bots. However, you can also host other types of applications including Node.js, Java, and Python applications. Please note that we do not support reverse proxying to custom domains, except for the subdomain we provide.</p>
+            </div>
+            <div class="faq-item">
+                <p><strong>What led to this change in operations?</strong></p>
+                <p>Unfortunately, one of our critical servers experienced a severe drive failure that could not be recovered. In response to this, we determined it was best to transition to a private, closed-source model to better manage and protect our infrastructure moving forward.</p>
+            </div>
+            <div class="faq-item center">
+                <p><strong>Okay, but why specifically go private?</strong></p>
+                <p>The decision to transition to a private model was influenced by several challenges related to abuse of our platform. Specifically, we encountered a significant amount of malicious activity, including:</p>
+                <ul>
+                    <li>Inappropriate content bots (e.g., adult content bots)</li>
+                    <li>Illegal applications, such as Distributed Denial of Service (DDoS) software</li>
+                    <li>Scam bots attempting to phish for sensitive credentials</li>
+                    <li>And much more</li>
+                </ul>
+                <p>As a small team of fewer than five people, we were unable to keep up with the volume of abuse and adequately moderate the content to ensure the safety and integrity of our platform. This led us to conclude that going private was the most effective way to maintain a secure and controlled environment.</p>
+            </div>
+        </div>
         <a href="index.html" class="back-button">Back to Home</a>
     </div>
 </body>
