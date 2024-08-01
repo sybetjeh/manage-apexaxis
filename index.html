@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ApexAxis - Notice</title>
+    <meta name="description" content="ApexAxis is no longer operating publicly. We've gone private and closed-source. Contact us if you wish to continue using our services.">
+    <meta property="og:title" content="ApexAxis - Notice">
+    <meta property="og:description" content="ApexAxis is no longer operating publicly. We've gone private and closed-source. Contact us if you wish to continue using our services.">
+    <meta property="og:url" content="https://manage.apexaxis.nl">
     <style>
         body {
             background-color: #121212;
@@ -14,6 +18,8 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
         }
         .container {
             text-align: center;
@@ -21,6 +27,8 @@
             padding: 40px 60px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 600px;
         }
         h1 {
             font-size: 2.5em;
@@ -40,13 +48,105 @@
             text-decoration: none;
             border-bottom: 2px solid #BB86FC;
         }
+        form {
+            margin-top: 20px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            background: #2a2a2a;
+            color: #e0e0e0;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background: #BB86FC;
+            color: #121212;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #9c70db;
+        }
+        .confirmation {
+            margin-top: 20px;
+            display: none;
+            color: #BB86FC;
+        }
+        .error {
+            margin-top: 20px;
+            display: none;
+            color: #e63946;
+        }
     </style>
+    <script>
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const confirmationMessage = document.querySelector('.confirmation');
+            const errorMessage = document.querySelector('.error');
+            const lastSubmitTime = localStorage.getItem('lastSubmitTime');
+            const currentTime = new Date().getTime();
+            
+            if (lastSubmitTime && (currentTime - lastSubmitTime < 5 * 60 * 1000)) { // 5 minutes in milliseconds
+                errorMessage.textContent = 'You can only submit once every 5 minutes. Please try again later.';
+                errorMessage.style.display = 'block';
+                confirmationMessage.style.display = 'none';
+                return;
+            }
+            
+            const formData = new FormData(event.target);
+            fetch('https://formsubmit.co/dc4bf9fc58a24036a1fdd13257f11e11', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    confirmationMessage.textContent = 'Your request has been sent successfully.';
+                    confirmationMessage.style.display = 'block';
+                    errorMessage.style.display = 'none';
+                    localStorage.setItem('lastSubmitTime', currentTime);
+                } else {
+                    errorMessage.textContent = 'There was an error sending your request. Please try again.';
+                    errorMessage.style.display = 'block';
+                    confirmationMessage.style.display = 'none';
+                }
+            }).catch(error => {
+                errorMessage.textContent = 'There was an error sending your request. Please try again.';
+                errorMessage.style.display = 'block';
+                confirmationMessage.style.display = 'none';
+            });
+        }
+    </script>
 </head>
 <body>
     <div class="container">
         <h1>ApexAxis - Notice</h1>
         <p>We're no longer operating publicly. We've gone private and closed-source.</p>
-        <p>If you wish to continue using our services, please send an email to <a href="mailto:me@sybeke.be">me@sybeke.be</a></p>
+        <p>If you wish to continue using our services, please send an email to <a href="mailto:me@sybeke.be">me@sybeke.be</a> or use the form below.</p>
+        <form onsubmit="handleFormSubmit(event)">
+            <input type="hidden" name="_subject" value="New Form Reply">
+            <input type="hidden" name="_captcha" value="false">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+            <button type="submit">Submit</button>
+        </form>
+        <div class="confirmation">Your request has been sent successfully.</div>
+        <div class="error"></div>
     </div>
 </body>
 </html>
